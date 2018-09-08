@@ -181,7 +181,8 @@ public class SolveServiceTest {
                     List<Position> positions = new ArrayList<>();
                     positions.add(block.getPosition());
                     positions.add(calcSumPosition(positions.get(0), movePosition));
-                    positionListList.add(nextPosition(positions, block.getNumber()));
+                    nextPosition(positions, block.getNumber());
+                    positionListList.add(positions);
                 }
 
                 return positionListList;
@@ -197,7 +198,9 @@ public class SolveServiceTest {
                 return null;
             }
 
-            private List<Position> nextPosition(List<Position> positions, int nextCount) {
+            private void nextPosition(List<Position> positions, int nextCount) {
+                if (nextCount >= 0) return;
+
                 for (Position movePosition : movePositions) {
                     Position calcSumPosition = calcSumPosition(positions.get(positions.size() - 1), movePosition);
                     if (isOverPosition(calcSumPosition)
@@ -207,10 +210,7 @@ public class SolveServiceTest {
                 }
                 nextCount -= 1;
 
-                if (nextCount >= 0)
-                    return nextPosition(positions, nextCount);
-                else
-                    return null;
+                nextPosition(positions, nextCount);
             }
 
             private Position calcSumPosition(Position arg1, Position arg2) {
