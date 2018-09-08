@@ -175,7 +175,7 @@ public class SolveServiceTest {
             }
 
             @Override
-            public List<List<Position>> level2(Block block) {
+            public List<List<Position>> level2(int[][] problem, Block block) {
 
                 if(block.getNumber() == 0) {
 //                    return
@@ -285,6 +285,6 @@ public class SolveServiceTest {
 
         };
 
-        System.out.println(solveService.level2(new Block(new Position(1,2), 3)));
+        System.out.println(solveService.level2(problem ,new Block(new Position(1,2), 3)));
     }
 }

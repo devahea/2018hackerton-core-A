@@ -50,7 +50,86 @@ public class SolveServiceImpl implements SolveService {
 
     @Override
     public List<List<Position>> level2(int[][] problem, Block block) {
-        return null;
+        if(block.getNumber() == 0) {
+//                    return
+            System.out.println("------" + block);
+        }
+
+        List<List<Position>> positionListList = new ArrayList<>();
+
+        List<Position> firstPosition = new ArrayList<>();
+
+//                firstPosition.add(block.getPosition());
+
+        System.out.println();System.out.println();System.out.println();
+
+        nextPosition(positionListList, firstPosition, block.getPosition(), block.getNumber()-1,block);
+
+
+        System.out.println();System.out.println();System.out.println();
+
+        System.out.println("positionListList " + positionListList);
+
+        return positionListList;
+    }
+
+    private void nextPosition(List<List<Position>> positionListList, List<Position> positionTrace, Position thisPosition, int hasCount,Block block) {
+
+        System.out.println(thisPosition + " ==== " + hasCount + "  ==== " + block);
+        //todo change
+        int height = 5;
+        int width = 5;
+
+        positionTrace.add(thisPosition);
+        if(hasCount == 0) {
+
+            System.out.println( block + " positionTrace Add " + positionTrace);
+
+            positionListList.add(positionTrace);
+
+            return;
+        }
+
+        if(thisPosition.getX() !=0) {
+            System.out.println("x -1 call");
+            Position position = new Position();
+            position.setX(thisPosition.getX()-1);
+            position.setY(thisPosition.getY());
+            nextPosition(positionListList, deepCopyAsList(positionTrace), position, hasCount-1,block);
+        }
+        if(thisPosition.getY() !=0) {
+            System.out.println("y -1 call");
+            Position position = new Position();
+            position.setX(thisPosition.getX());
+            position.setY(thisPosition.getY()-1);
+            nextPosition(positionListList, deepCopyAsList(positionTrace), position, hasCount-1,block);
+        }
+        if(thisPosition.getX() != width) {
+            System.out.println("x +1 call");
+            Position position = new Position();
+            position.setX(thisPosition.getX()+1);
+            position.setY(thisPosition.getY());
+            nextPosition(positionListList, deepCopyAsList(positionTrace), position, hasCount-1,block);
+        }
+        if(thisPosition.getY() != height) {
+            System.out.println("y +1 call");
+            Position position = new Position();
+            position.setX(thisPosition.getX());
+            position.setY(thisPosition.getY()+1);
+            nextPosition(positionListList, deepCopyAsList(positionTrace), position, hasCount-1,block);
+        }
+
+    }
+
+    private  List<Position> deepCopyAsList(List<Position>  list) {
+
+        List<Position> result = new ArrayList<>();
+
+        for(Position position : list) {
+            result.add(position);
+        }
+
+        return result;
     }
 
 
