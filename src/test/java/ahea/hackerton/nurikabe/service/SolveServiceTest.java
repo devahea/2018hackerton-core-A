@@ -15,8 +15,8 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
-@RunWith(SpringRunner.class)
-@SpringBootTest
+//@RunWith(SpringRunner.class)
+//@SpringBootTest
 public class SolveServiceTest {
 
     private int[][] problem;
@@ -201,7 +201,7 @@ public class SolveServiceTest {
                 for (Position movePosition : movePositions) {
                     Position calcSumPosition = calcSumPosition(positions.get(positions.size() - 1), movePosition);
                     if (isOverPosition(calcSumPosition)
-                            && problem[calcSumPosition.getX()][calcSumPosition.getY()] == 0
+                            && problem[calcSumPosition.getY()][calcSumPosition.getX()] == 0
                     )
                         positions.add(calcSumPosition);
                 }
