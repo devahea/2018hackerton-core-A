@@ -5,6 +5,8 @@ import ahea.hackerton.nurikabe.dto.Position;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 @Service
@@ -30,8 +32,42 @@ public class SolveServiceImpl implements SolveService {
         return null;
     }
 
+
     @Override
-    public List<List<Position>> level3(List<Block> blocks, List<List<Position>> positionsList) {
-        return null;
+    public List<List<Position>> level3(List<Block> blockList, List<List<Position>> positionsList) {
+
+        List<List<Position>> result = positionsList;
+        List<Block> blocks = blockList;
+        int deleteRawIndex =0;
+        List<Integer> deleteRaw = new ArrayList<>();
+        for(List<Position> positions : result){
+            int index = 0;
+            for(Position position : positions){
+                if(index != 0) {
+                    for (Block block : blocks) {
+                        if (position.getX() == (block.getPosition().getX())
+                                && position.getY() == (block.getPosition().getY())) {
+                            deleteRaw.add(deleteRawIndex);
+                        }
+                    }
+                }
+                index ++;
+            }
+            deleteRawIndex ++;
+        }
+        Descending descending = new Descending();
+        Collections.sort(deleteRaw, descending);
+
+        for(int deleteRawNum : deleteRaw){
+            result.remove(deleteRawNum);
+        }
+        return result;
+    }
+
+    class Descending implements Comparator<Integer> {
+        @Override
+        public int compare(Integer o1, Integer o2) {
+            return o2.compareTo(o1);
+        }
     }
 }
