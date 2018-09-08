@@ -34,4 +34,36 @@ public class SolveServiceImpl implements SolveService {
     public List<List<Position>> level3(List<Block> blocks, List<List<Position>> positionsList) {
         return null;
     }
+
+    @Override
+    public List<List<Position>> level4(List<List<Position>> p1, List<List<Position>> p2) {
+        List<List<Position>> positionsList = new ArrayList<>();
+
+        p1.stream()
+                .forEach(src -> {
+                    p2.stream()
+                            .filter(src2 -> checkPositionMergeable(src, src2))
+                            .forEach(src2 -> positionsList.add(mergePositions(src, src2)));
+        });
+
+        return positionsList;
+    }
+
+    private boolean checkPositionMergeable(List<Position> positions1, List<Position> positions2) {
+        for (Position p1 : positions1) {
+            for (Position p2 : positions2) {
+                if(p1.isNearby(p2))
+                    return false;
+            }
+        }
+        return true;
+    }
+
+    private List<Position> mergePositions(List<Position> positions1, List<Position> positions2) {
+        List<Position> positions = new ArrayList<>();
+        positions.addAll(positions1);
+        positions.addAll(positions2);
+
+        return positions;
+    }
 }
