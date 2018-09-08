@@ -4,10 +4,7 @@ import ahea.hackerton.nurikabe.dto.Block;
 import ahea.hackerton.nurikabe.dto.Position;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class SolveServiceImpl implements SolveService {
@@ -32,17 +29,17 @@ public class SolveServiceImpl implements SolveService {
             resultPosition = level4(resultPosition, level3Result.get(i));
         }
 
-        return null;
+        return resultPosition;
     }
 
     @Override
     public List<Block> level1(int[][] problem) {
         List<Block> blocks = new ArrayList<>();
 
-        for (int i = 0; i < problem.length; i++) {
-            for (int j = 0; j < problem[i].length; j++) {
-                if(problem[i][j] > 0) {
-                    Block block = new Block(new Position(i, j), problem[i][j]);
+        for (int y = 0; y < problem.length; y++) {
+            for (int x = 0; x < problem[y].length; x++) {
+                if(problem[y][x] > 0) {
+                    Block block = new Block(new Position(x, y), problem[y][x]);
                     blocks.add(block);
                 }
             }
