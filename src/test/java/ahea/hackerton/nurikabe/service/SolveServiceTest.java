@@ -15,8 +15,8 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
-//@RunWith(SpringRunner.class)
-//@SpringBootTest
+@RunWith(SpringRunner.class)
+@SpringBootTest
 public class SolveServiceTest {
 
     private int[][] problem;
@@ -151,7 +151,7 @@ public class SolveServiceTest {
     public void level1() {
         blocks = solveService.level1(problem);
         blocks.forEach(src -> {
-            assertTrue(src.getNumber() == problem[src.getPosition().getX()][src.getPosition().getY()]);
+            assertTrue(src.getNumber() == problem[src.getPosition().getY()][src.getPosition().getX()]);
         });
     }
     @Test
