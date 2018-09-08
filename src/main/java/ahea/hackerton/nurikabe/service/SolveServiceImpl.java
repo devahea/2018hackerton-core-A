@@ -12,6 +12,26 @@ import java.util.List;
 @Service
 public class SolveServiceImpl implements SolveService {
     @Override
+    public List<List<Position>> solveProblem(int[][] problem) {
+        List<Block> blocks = level1(problem);
+
+        List<List<List<Position>>> level2Result = new ArrayList<>();
+        for(Block block:blocks) {
+            List<List<Position>> result = level2(block);
+            level2Result.add(result);
+        }
+
+        List<List<List<Position>>> level3Result = new ArrayList<>();
+        for(List<List<Position>> positions:level2Result) {
+            List<List<Position>> result = level3(blocks, positions);
+            level3Result.add(result);
+        }
+
+
+        return null;
+    }
+
+    @Override
     public List<Block> level1(int[][] problem) {
         List<Block> blocks = new ArrayList<>();
 
@@ -28,7 +48,7 @@ public class SolveServiceImpl implements SolveService {
     }
 
     @Override
-    public List<List<Position>> level2(List<Block> blocks) {
+    public List<List<Position>> level2(Block block) {
         return null;
     }
 
@@ -81,6 +101,19 @@ public class SolveServiceImpl implements SolveService {
                             .filter(src2 -> checkPositionMergeable(src, src2))
                             .forEach(src2 -> positionsList.add(mergePositions(src, src2)));
         });
+
+        return positionsList;
+    }
+
+    private List<List<Position>> level4Internal(List<List<Position>> p1, List<List<Position>> p2) {
+        List<List<Position>> positionsList = new ArrayList<>();
+
+        p1.stream()
+                .forEach(src -> {
+                    p2.stream()
+                            .filter(src2 -> checkPositionMergeable(src, src2))
+                            .forEach(src2 -> positionsList.add(mergePositions(src, src2)));
+                });
 
         return positionsList;
     }
