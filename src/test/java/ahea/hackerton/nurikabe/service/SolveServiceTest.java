@@ -15,8 +15,8 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
-@RunWith(SpringRunner.class)
-@SpringBootTest
+//@RunWith(SpringRunner.class)
+//@SpringBootTest
 public class SolveServiceTest {
 
     private int[][] problem;
@@ -199,7 +199,7 @@ public class SolveServiceTest {
             }
 
             private void nextPosition(List<Position> positions, int nextCount) {
-                if (nextCount >= 0) return;
+                if (nextCount > 0) return;
 
                 for (Position movePosition : movePositions) {
                     Position calcSumPosition = calcSumPosition(positions.get(positions.size() - 1), movePosition);
