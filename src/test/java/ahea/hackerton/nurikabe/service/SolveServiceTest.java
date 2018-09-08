@@ -5,6 +5,7 @@ import ahea.hackerton.nurikabe.dto.Position;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -20,6 +21,9 @@ public class SolveServiceTest {
     private List<Block> blocks;
     private List<List<Position>> positionsList;
 
+    @Autowired
+    private SolveService solveService;
+
     @Before
     public void setUp() throws Exception {
         int[][] problem = {{0,0,0,0,0},
@@ -33,6 +37,9 @@ public class SolveServiceTest {
 
     @Test
     public void level1() {
-        System.out.println(problem);
+        blocks = solveService.level1(problem);
+        blocks.forEach(src -> {
+            assertTrue(src.getNumber() == problem[src.getPosition().getX()][src.getPosition().getY()]);
+        });
     }
 }
