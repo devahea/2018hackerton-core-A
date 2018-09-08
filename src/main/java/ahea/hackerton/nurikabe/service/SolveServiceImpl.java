@@ -14,7 +14,7 @@ public class SolveServiceImpl implements SolveService {
 
         List<List<List<Position>>> level2Result = new ArrayList<>();
         for(Block block:blocks) {
-            List<List<Position>> result = level2(block);
+            List<List<Position>> result = level2(problem, block);
             level2Result.add(result);
         }
 
@@ -49,7 +49,7 @@ public class SolveServiceImpl implements SolveService {
     }
 
     @Override
-    public List<List<Position>> level2(Block block) {
+    public List<List<Position>> level2(int[][] problem, Block block) {
         return null;
     }
 
