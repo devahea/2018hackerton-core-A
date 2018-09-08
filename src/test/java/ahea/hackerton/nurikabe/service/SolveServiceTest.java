@@ -10,6 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -21,6 +22,7 @@ public class SolveServiceTest {
     private int[][] problem;
     private List<Block> blocks;
     private List<List<Position>> positionsList;
+    List<Position> movePositions;
 
     @Autowired
     private SolveService solveService;
@@ -36,6 +38,13 @@ public class SolveServiceTest {
         this.problem = problem;
         setBlock();
         setData();
+
+        this.movePositions = Arrays.asList(
+                new Position(1,0)
+                , new Position(-1,0)
+                , new Position(0,1)
+                , new Position(0,-1)
+        );
     }
 
     private static List<Block> setBlock() {
@@ -149,5 +158,77 @@ public class SolveServiceTest {
     public void level3() {
         List<List<Position>> result = solveService.level3(setBlock(),setData());
         printPosition(result);
+    }
+
+    @Test
+    public void level2() {
+        SolveService solveService = new SolveService() {
+            @Override
+            public List<List<Position>> solveProblem(int[][] problem) {
+                return null;
+            }
+
+            @Override
+            public List<Block> level1(int[][] problem) {
+                return null;
+            }
+
+            @Override
+            public List<List<Position>> level2(Block block) {
+                List<List<Position>> positionListList = new ArrayList<>();
+
+                for (Position movePosition : movePositions) {
+                    List<Position> positions = new ArrayList<>();
+                    positions.add(block.getPosition());
+                    positions.add(calcSumPosition(positions.get(0), movePosition));
+                    positionListList.add(nextPosition(positions, block.getNumber()));
+                }
+
+                return positionListList;
+            }
+
+            @Override
+            public List<List<Position>> level3(List<Block> blocks, List<List<Position>> positionsList) {
+                return null;
+            }
+
+            @Override
+            public List<List<Position>> level4(List<List<Position>> p1, List<List<Position>> p2) {
+                return null;
+            }
+
+            private List<Position> nextPosition(List<Position> positions, int nextCount) {
+                for (Position movePosition : movePositions) {
+                    Position calcSumPosition = calcSumPosition(positions.get(positions.size() - 1), movePosition);
+                    if (isOverPosition(calcSumPosition)
+                            && problem[calcSumPosition.getX()][calcSumPosition.getY()] == 0
+                    )
+                        positions.add(calcSumPosition);
+                }
+                nextCount -= 1;
+
+                if (nextCount >= 0)
+                    return nextPosition(positions, nextCount);
+                else
+                    return null;
+            }
+
+            private Position calcSumPosition(Position arg1, Position arg2) {
+                return new Position(arg1.getX() + arg2.getX(), arg1.getY() + arg2.getY());
+            }
+
+            private boolean isOverPosition(Position position) {
+                if (position.getX() < 0 || position.getY() < 0)
+                    return false;
+
+                if (position.getX() >= problem.length || position.getY() >= problem.length)
+                    return false;
+
+                return true;
+            }
+
+        };
+
+        System.out.println(solveService.level2(new Block(new Position(1,2), 3)));
     }
 }
