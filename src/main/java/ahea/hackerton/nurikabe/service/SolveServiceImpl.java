@@ -27,6 +27,10 @@ public class SolveServiceImpl implements SolveService {
             level3Result.add(result);
         }
 
+        List<List<Position>> resultPosition = level3Result.get(0);
+        for (int i = 1; i < level3Result.size(); i++) {
+            resultPosition = level4(resultPosition, level3Result.get(i));
+        }
 
         return null;
     }
@@ -101,19 +105,6 @@ public class SolveServiceImpl implements SolveService {
                             .filter(src2 -> checkPositionMergeable(src, src2))
                             .forEach(src2 -> positionsList.add(mergePositions(src, src2)));
         });
-
-        return positionsList;
-    }
-
-    private List<List<Position>> level4Internal(List<List<Position>> p1, List<List<Position>> p2) {
-        List<List<Position>> positionsList = new ArrayList<>();
-
-        p1.stream()
-                .forEach(src -> {
-                    p2.stream()
-                            .filter(src2 -> checkPositionMergeable(src, src2))
-                            .forEach(src2 -> positionsList.add(mergePositions(src, src2)));
-                });
 
         return positionsList;
     }
