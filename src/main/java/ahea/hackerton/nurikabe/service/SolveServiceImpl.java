@@ -70,9 +70,12 @@ public class SolveServiceImpl implements SolveService {
         System.out.println();System.out.println();System.out.println();
 
         System.out.println("positionListList " + positionListList);
-        positionListList.stream().distinct().collect(Collectors.toList());
+        positionListList.stream()
+                .forEach(src -> src.stream()
+                        .distinct()
+                        .filter(src2 -> block.getNumber() != src.size()));
 
-        return positionListList.stream().distinct().collect(Collectors.toList());
+        return positionListList;
     }
 
     private void nextPosition(List<List<Position>> positionListList, List<Position> positionTrace, Position thisPosition, int hasCount,Block block ,int height, int width) {
@@ -110,7 +113,7 @@ public class SolveServiceImpl implements SolveService {
             position.setY(thisPosition.getY());
             nextPosition(positionListList, deepCopyAsList(positionTrace), position, hasCount-1,block, height, width);
         }
-        if(thisPosition.getY()+1 < height) {
+        if(thisPosition.getY() >= height) {
             System.out.println("y +1 call");
             Position position = new Position();
             position.setX(thisPosition.getX());
