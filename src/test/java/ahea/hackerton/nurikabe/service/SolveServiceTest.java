@@ -171,4 +171,9 @@ public class SolveServiceTest {
 
         );
     }
+
+    @Test
+    public void solveProblem() {
+        solveService.solveProblem(problem);
+    }
 }

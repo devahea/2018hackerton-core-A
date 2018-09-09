@@ -89,28 +89,28 @@ public class SolveServiceImpl implements SolveService {
             return;
         }
 
-        if(thisPosition.getX() >= 0) {
+        if(thisPosition.getX()-1 >= 0) {
             System.out.println("x -1 call");
             Position position = new Position();
             position.setX(thisPosition.getX()-1);
             position.setY(thisPosition.getY());
             nextPosition(positionListList, deepCopyAsList(positionTrace), position, hasCount-1,block, height, width);
         }
-        if(thisPosition.getY() >= 0) {
+        if(thisPosition.getY()-1 >= 0) {
             System.out.println("y -1 call");
             Position position = new Position();
             position.setX(thisPosition.getX());
             position.setY(thisPosition.getY()-1);
             nextPosition(positionListList, deepCopyAsList(positionTrace), position, hasCount-1,block, height, width);
         }
-        if(thisPosition.getX() < width) {
+        if(thisPosition.getX()+1 < width) {
             System.out.println("x +1 call");
             Position position = new Position();
             position.setX(thisPosition.getX()+1);
             position.setY(thisPosition.getY());
             nextPosition(positionListList, deepCopyAsList(positionTrace), position, hasCount-1,block, height, width);
         }
-        if(thisPosition.getY() < height) {
+        if(thisPosition.getY()+1 < height) {
             System.out.println("y +1 call");
             Position position = new Position();
             position.setX(thisPosition.getX());
