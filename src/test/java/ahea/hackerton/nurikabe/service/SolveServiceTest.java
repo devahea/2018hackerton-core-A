@@ -16,8 +16,8 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
-//@RunWith(SpringRunner.class)
-//@SpringBootTest
+@RunWith(SpringRunner.class)
+@SpringBootTest
 public class SolveServiceTest {
 
     private int[][] problem;
@@ -163,128 +163,12 @@ public class SolveServiceTest {
 
     @Test
     public void level2() {
-        SolveService solveService = new SolveService() {
-            @Override
-            public List<List<Position>> solveProblem(int[][] problem) {
-                return null;
-            }
-
-            @Override
-            public List<Block> level1(int[][] problem) {
-                return null;
-            }
-
-            @Override
-            public List<List<Position>> level2(int[][] problem, Block block) {
-
-                if(block.getNumber() == 0) {
-//                    return
-                    System.out.println("------" + block);
+        System.out.println("level2 Test 시작");
+        solveService.level1(problem).forEach(block -> {
+            System.out.println("block 출력");
+            System.out.println("block의 경우의 수" + solveService.level2(problem, block));
                 }
 
-                List<List<Position>> positionListList = new ArrayList<>();
-
-                List<Position> firstPosition = new ArrayList<>();
-
-//                firstPosition.add(block.getPosition());
-
-                System.out.println();System.out.println();System.out.println();
-
-                nextPosition(positionListList, firstPosition, block.getPosition(), block.getNumber()-1,block);
-
-
-                System.out.println();System.out.println();System.out.println();
-
-                System.out.println("positionListList " + positionListList);
-
-                return positionListList;
-            }
-
-            @Override
-            public List<List<Position>> level3(List<Block> blocks, List<List<Position>> positionsList) {
-                return null;
-            }
-
-            @Override
-            public List<List<Position>> level4(List<List<Position>> p1, List<List<Position>> p2) {
-                return null;
-            }
-
-            private void nextPosition(List<List<Position>> positionListList, List<Position> positionTrace, Position thisPosition, int hasCount,Block block) {
-
-                System.out.println(thisPosition + " ==== " + hasCount + "  ==== " + block);
-                //todo change
-                int height = 5;
-                int width = 5;
-
-               positionTrace.add(thisPosition);
-                if(hasCount == 0) {
-
-                    System.out.println( block + " positionTrace Add " + positionTrace);
-
-                   positionListList.add(positionTrace);
-
-                   return;
-               }
-
-               if(thisPosition.getX() !=0) {
-                   System.out.println("x -1 call");
-                    Position position = new Position();
-                    position.setX(thisPosition.getX()-1);
-                    position.setY(thisPosition.getY());
-                    nextPosition(positionListList, deepCopyAsList(positionTrace), position, hasCount-1,block);
-               }
-               if(thisPosition.getY() !=0) {
-                   System.out.println("y -1 call");
-                   Position position = new Position();
-                   position.setX(thisPosition.getX());
-                   position.setY(thisPosition.getY()-1);
-                   nextPosition(positionListList, deepCopyAsList(positionTrace), position, hasCount-1,block);
-               }
-                if(thisPosition.getX() != width) {
-                    System.out.println("x +1 call");
-                    Position position = new Position();
-                    position.setX(thisPosition.getX()+1);
-                    position.setY(thisPosition.getY());
-                    nextPosition(positionListList, deepCopyAsList(positionTrace), position, hasCount-1,block);
-                }
-                if(thisPosition.getY() != height) {
-                    System.out.println("y +1 call");
-                    Position position = new Position();
-                    position.setX(thisPosition.getX());
-                    position.setY(thisPosition.getY()+1);
-                    nextPosition(positionListList, deepCopyAsList(positionTrace), position, hasCount-1,block);
-                }
-
-            }
-
-            private  List<Position> deepCopyAsList(List<Position>  list) {
-
-                List<Position> result = new ArrayList<>();
-
-                for(Position position : list) {
-                    result.add(position);
-                }
-
-                return result;
-            }
-
-            private Position calcSumPosition(Position arg1, Position arg2) {
-                return new Position(arg1.getX() + arg2.getX(), arg1.getY() + arg2.getY());
-            }
-
-            private boolean isOverPosition(Position position) {
-                if (position.getX() < 0 || position.getY() < 0)
-                    return false;
-
-                if (position.getX() >= problem.length || position.getY() >= problem.length)
-                    return false;
-
-                return true;
-            }
-
-        };
-
-        System.out.println(solveService.level2(problem ,new Block(new Position(1,2), 3)));
+        );
     }
 }
