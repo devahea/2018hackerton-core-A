@@ -5,6 +5,7 @@ import ahea.hackerton.nurikabe.dto.Position;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class SolveServiceImpl implements SolveService {
@@ -69,8 +70,9 @@ public class SolveServiceImpl implements SolveService {
         System.out.println();System.out.println();System.out.println();
 
         System.out.println("positionListList " + positionListList);
+        positionListList.stream().distinct().collect(Collectors.toList());
 
-        return positionListList;
+        return positionListList.stream().distinct().collect(Collectors.toList());
     }
 
     private void nextPosition(List<List<Position>> positionListList, List<Position> positionTrace, Position thisPosition, int hasCount,Block block ,int height, int width) {
